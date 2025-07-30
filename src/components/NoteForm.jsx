@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 
-const NoteForm = () => {
+const NoteForm = ({ notes, setNotes }) => {
     const [formData, setFormData] = useState({
         title: '',
         category: 'Work',
@@ -12,8 +12,24 @@ const NoteForm = () => {
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
+
+    const handleSubmit = (e) => {
+        console.log(notes)
+        e.preventDefault()
+        if (!formData.title || !formData.description)
+            return
+        const currentNote = { id: Date.now(), ...formData }
+        setNotes([currentNote, ...notes])
+        setFormData({
+            title: '',
+            category: 'Work',
+            priority: 'Medium',
+            description: ''
+        })
+    }
+
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <div className="mb-4">
                 <label htmlFor="title" className="block font-semibold">Title</label>
                 <input type="text" name="title" id="title" value={formData.title} className="w-full p-2 border rounded-lg" onChange={handleChange} />
