@@ -16,7 +16,6 @@ const NoteForm = ({ notes, setNotes }) => {
     }
 
     const handleSubmit = (e) => {
-        console.log(notes)
         e.preventDefault()
         if (!formData.title || !formData.description)
             return
